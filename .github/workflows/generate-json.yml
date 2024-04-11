@@ -17,13 +17,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Get environment variables with prefix
+      - name: Setup python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+      - name: execute python script
         run: |
-          #!/bin/bash
-          PREFIX="IVT_"
-          while IFS='=' read -r name value; do
-              if [[ "$name" == "$PREFIX"* ]]; then
-                  name_without_prefix=$(echo "$name" | cut -d'=' -f1)
-                  echo "Variable name without prefix: $name_without_prefix"
-              fi
-          done < <(env | grep "^${PREFIX}")
+          python additonal_infra.py
+          echo ${{ env.ADDITONAL_INFRA }}
