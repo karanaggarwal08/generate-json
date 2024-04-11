@@ -22,6 +22,6 @@ for name, value in os.environ.items():
         my_array.append(dict)
 json_str = json.dumps(my_array)
 env_file = os.getenv("GITHUB_ENV")
-print(json_str)
+# print(json_str)
 with open(env_file, "a") as myfile:
     myfile.write("ADDITIONAL_INFRA={}".format(json_str))
