@@ -24,4 +24,5 @@ jobs:
       - name: execute python script
         run: |
           python additonal_infra.py
-          echo $ADDITIONAL_INFRA
+      - name: Print Environment variable
+        run:  echo "$ADDITIONAL_INFRA"
