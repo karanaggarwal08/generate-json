@@ -7,23 +7,19 @@ on:
 jobs:
   generate_json:
     runs-on: ubuntu-latest
+    env:
+      IVT_PUMKIN134_CENTRAL_DEFAULT_ELASTICACHE: '{"cluster_mode": "false"}'
+      IVT_PUMKIN134_PIE_DEFAULT_ELASTICACHE: '{"cluster_mode": "false"}'
+      IVT_PUMKIN134_CLOUDAUTH_DEFAULT_ELASTICACHE: '{"cluster_mode": "false"}'
+      TEST_ENV: 'test_env'
+      TEST_ENV1: 'test_env'
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up environment
-        run: echo "INPUT_VARIABLES=${{ toJson(inputs.variables) }}" >> $GITHUB_ENV
-
-      - name: Generate JSON
-        id: generate-json
-        run: echo "$INPUT_VARIABLES" > output.json
-
-      - name: Display JSON
-        run: cat output.json
-
-# Define inputs
-inputs:
-  variables:
-    description: 'List of environment variables'
-    required: true
-
+      - name: Get environment variables with prefix
+        run: |
+          #!/bin/bash
+          PREFIX="IVT_"
+          env | grep "^${PREFIX}" > prefixed_env_variables.txt
+          cat prefixed_env_variables.txt
