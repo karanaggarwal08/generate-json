@@ -21,5 +21,7 @@ jobs:
         run: |
           #!/bin/bash
           PREFIX="IVT_"
-          env | grep "^${PREFIX}" > prefixed_env_variables.txt
-          cat prefixed_env_variables.txt
+          while IFS='=' read -r name value; do
+              name_without_prefix=$(echo "$name" | cut -d'=' -f1)
+              echo "Variable name without prefix: $name_without_prefix"
+          done < <(env | grep "^${PREFIX}")
