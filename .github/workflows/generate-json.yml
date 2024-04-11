@@ -22,6 +22,8 @@ jobs:
           #!/bin/bash
           PREFIX="IVT_"
           while IFS='=' read -r name value; do
-              name_without_prefix=$(echo "$name" | cut -d'=' -f1)
-              echo "Variable name without prefix: $name_without_prefix"
+              if [[ "$name" == "$PREFIX"* ]]; then
+                  name_without_prefix=$(echo "$name" | cut -d'=' -f1)
+                  echo "Variable name without prefix: $name_without_prefix"
+              fi
           done < <(env | grep "^${PREFIX}")
