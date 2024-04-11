@@ -1,0 +1,29 @@
+name: Generate JSON from Environment Variables
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate_json:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up environment
+        run: echo "INPUT_VARIABLES=${{ toJson(inputs.variables) }}" >> $GITHUB_ENV
+
+      - name: Generate JSON
+        id: generate-json
+        run: echo "{\"variables\": $INPUT_VARIABLES}" > output.json
+
+      - name: Display JSON
+        run: cat output.json
+
+# Define inputs
+inputs:
+  variables:
+    description: 'List of environment variables'
+    required: true
+
