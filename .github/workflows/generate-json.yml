@@ -24,4 +24,4 @@ jobs:
       - name: execute python script
         run: |
           python additonal_infra.py
-          echo "$ADDITONAL_INFRA"
+          echo "$ADDITIONAL_INFRA"
