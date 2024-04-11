@@ -16,7 +16,7 @@ jobs:
 
       - name: Generate JSON
         id: generate-json
-        run: echo "{\"variables\": $INPUT_VARIABLES}" > output.json
+        run: echo "$INPUT_VARIABLES" > output.json
 
       - name: Display JSON
         run: cat output.json
